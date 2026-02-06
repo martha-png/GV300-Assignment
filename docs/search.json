@@ -1,0 +1,33 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this site",
+      "description": "Some additional details about the website",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2026-02-06T16:23:30+00:00"
+    },
+    {
+      "path": "homepage.html",
+      "author": [],
+      "contents": "\ncreate—\ntitle: “Tobi Burns”\nimage: “tobi.jpg”\nlinks:\n- label: LinkedIn\nurl: “https://linkedin.com/”\n- label: Twitter\nurl: “https://twitter.com/”\n- label: GitHub\nurl: “https://github.com/”\n- label: Email\nurl: “mailto:email@email.com”\noutput:\npostcards::jolla\n—\nI am a classically trained data scientist living in the San Francisco Bay Area.\nCurrently I work on the Oculus team at Facebook. I love talking about baseball,\ntrue crime podcasts, and causal inference.\n\n\n\n",
+      "last_modified": "2026-02-06T16:23:30+00:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Martha Sansom",
+      "author": [],
+      "contents": "\n\n          \n          \n          Martha Sansom\n          \n          \n          Home\n          Posts\n          ☰\n          \n          \n      \n        \n          \n            Martha Sansom\n          \n          \n            \n              \n              Bio\n              I am a final year student studying Politics and\n              International Relations at the University of Essex. My\n              current academic interests include terrorism and\n              international security which I hope to translate into a\n              career. In my spare time I enjoy climbing and baking.\n              \n              Email:\n              ms23771@essex.ac.uk\n              \n              \n            \n            \n              \n              Bio\n              I am a final year student studying Politics and\n              International Relations at the University of Essex. My\n              current academic interests include terrorism and\n              international security which I hope to translate into a\n              career. In my spare time I enjoy climbing and baking.\n              \n              Email:\n              ms23771@essex.ac.uk\n              \n              \n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2026-02-06T16:23:32+00:00"
+    },
+    {
+      "path": "posts.html",
+      "title": "Blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2026-02-06T16:23:32+00:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}

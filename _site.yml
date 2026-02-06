@@ -1,0 +1,13 @@
+name: "."
+title: "Martha Sansom"
+description: |
+  mfeo
+output_dir: "docs"
+theme: theme.css
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Posts"
+      href: posts.html
+output: distill::distill_article
