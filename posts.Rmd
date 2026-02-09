@@ -1,0 +1,151 @@
+---
+title: "GV300 Showcase"
+output: distill::distill_article
+---
+# Introduction
+This work demonstrates some of the code I have created during my final year
+Advanced Quantitative Political Analysis module. 
+
+# Code chunk
+```{r}
+library(tidyverse)
+
+uk_csv <- "https://electionresults.parliament.uk/general-elections/6/candidacies.csv"
+uk_raw <- readr::read_csv(uk_csv, show_col_types = FALSE)
+
+names(uk_raw) <- names(uk_raw) %>% tolower() %>% str_replace_all("\\s+", "_")
+
+uk1 <- uk_raw %>%
+  filter(!`election_is_by-election`)
+
+uk2 <- uk1 %>%
+  select(
+    constituency = constituency_name,
+    country      = country_name,
+    valid_votes  = candidate_vote_count,
+    electorate   = electorate
+  )
+
+uk3 <- uk2 %>%
+  group_by(country, constituency) %>%
+  summarise(
+    valid_votes = sum(valid_votes, na.rm = TRUE),
+    electorate  = max(electorate, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+uk <- uk3 %>%
+  mutate(turnout_registered = 100 * valid_votes / electorate) %>%
+  filter(is.finite(turnout_registered), electorate > 0)
+
+non_voter_analysis <- uk %>%
+  mutate(non_voters = electorate - valid_votes)
+
+total_non_voters <- sum(non_voter_analysis$non_voters)
+total_electorate <- sum(non_voter_analysis$electorate)
+total_voters <- sum(non_voter_analysis$valid_votes)
+non_voter_percentage <- 100 * total_non_voters / total_electorate
+
+top_non_voters <- non_voter_analysis %>%
+  arrange(desc(non_voters)) %>%
+  slice_head(n = 10) %>%
+  select(constituency, country, electorate, valid_votes, 
+         non_voters, turnout_registered)
+
+top_non_voters
+
+```
+
+# Visualisation
+```{r}
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(here)
+kidiq <- read_csv(here::here("_data", "kidiq-2.csv"))
+
+kidiq <- kidiq %>%
+  mutate(
+    ability_level = case_when(
+      mom_iq <= quantile(mom_iq, 0.25, na.rm = TRUE) ~ "Low ability",
+      mom_iq <= quantile(mom_iq, 0.75, na.rm = TRUE) ~ "Medium ability",
+      TRUE ~ "High ability"
+    ),
+     outcome_level = case_when(
+      kid_score <= quantile(kid_score, 0.25, na.rm = TRUE) ~ "Low outcome",
+      kid_score <= quantile(kid_score, 0.75, na.rm = TRUE) ~ "Medium outcome",
+      TRUE ~ "High outcome"
+    ),
+    iq_group = case_when(
+      mom_iq <= quantile(mom_iq, 0.33, na.rm = TRUE) ~ "Lower IQ",
+      mom_iq <= quantile(mom_iq, 0.67, na.rm = TRUE) ~ "Middle IQ",
+      TRUE ~ "Higher IQ"
+    ),
+    surprising_case = case_when(
+      ability_level == "High ability" & outcome_level == "Low outcome" ~ "High ability, low outcome",
+      ability_level == "Low ability" & outcome_level == "High outcome" ~ "Low ability, high outcome",
+      TRUE ~ "Expected pattern"
+    ),
+        family_advantage = case_when(
+      mom_hs == 0 & mom_work <= 2 ~ "Low advantage",
+      mom_hs == 0 & mom_work > 2 ~ "Mixed advantage",
+      mom_hs == 1 & mom_work <= 2 ~ "Mixed advantage", 
+      mom_hs == 1 & mom_work > 2 ~ "High advantage"
+    ),
+    mom_round_iq = round(kidiq $ mom_iq, digits = 0)
+  )
+
+# this reorders levels of advantage to a logical order of low, mixed, and high.
+kidiq $ family_advantage <- factor(kidiq $ family_advantage, levels = c("Low advantage", "Mixed advantage",
+                                                                        "High advantage"))
+
+# this reorders levels of mom IQ to a logical order of lower, middle, and high.
+kidiq $ iq_group <- factor(kidiq $ iq_group, levels = c("Lower IQ", "Middle IQ", "Higher IQ"))
+                  
+ kidiq %>%
+  ggplot(aes(x = mom_round_iq, y = kid_score, color = surprising_case)) +
+  geom_point() +
+  geom_smooth(data = subset(kidiq, surprising_case == "Expected pattern"),
+              aes(x = mom_round_iq, y = kid_score),
+              method = 'lm', color = "black") +
+  facet_wrap(~ family_advantage) +
+  scale_color_manual(values = c("Expected pattern" = "gray", 
+                               "High ability, low outcome" = "lightgreen", 
+                               "Low ability, high outcome" = "#F781BF"), name = "Surprising Cases") +
+  labs(
+    title = "The Relationship Between Children's Test Scores and Mother's IQs
+and the Impact of Familial Advantage",
+    subtitle = "Children with low familial advantage have a stronger positive relationship between 
+mother's IQ and test results than mixed and high advantage groups. This suggests
+childrens' outcomes are not purely based on merit.", 
+    x = "Mother's IQ (proxy for 'ability')",
+    y = "Child's Test Score",
+    caption = "Data: Children's test scores and mother's characteristics"
+  ) +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank()) +
+  theme(panel.grid.minor = element_blank())
+
+```
+
+# What the code does and what the figure shows.
+After loading the data set, the first chunk of code creates meaningful categories,
+identifying: the level of the mother's ability, the outcome level of children's
+scores, groups the mothers by iq, identifies outliers, filters the mother's by 
+levels of advantage, and finally rounded the mother's IQs. The following two lines 
+of code reorder family advantage and mom IQ to make the visualisation follow
+a logical order (from low to high). The visualisation code displays the children's
+test scores as points, whilst adding a regression line on top to show how the
+relationship between test scores and IQ vary across backgrounds. Surprising cases
+are coloured differently. 
+
+The figure shows that there is a positive relationship between mother's IQ and 
+child's test score across all backgrounds. This means that children of mothers with
+higher IQ scores are more likely to test highly. This relationship is strongest
+in those with low familial advantage. The other two groups have more surprising
+cases (when the predicted relationship is not found) than low familial advantage
+but this may be due to them having larger sample sizes.
+
+
+# Link to repository
+https://github.com/martha-png/GV300-Assignment

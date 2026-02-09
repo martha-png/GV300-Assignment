@@ -1,0 +1,12 @@
+name: "."
+title: "My Page"
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Assignment"
+      href: posts.html
+site: distill::distill_website
+theme: postcards.css
+

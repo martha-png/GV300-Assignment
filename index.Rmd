@@ -1,0 +1,23 @@
+---
+title: "Martha Sansom"
+image: "Martha.jpg"
+links:
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/marthasansom/"
+  - label: GitHub
+    url: "https://github.com/martha-png"
+output:
+  postcards::jolla
+site: distill::distill_website
+---
+ 
+## Bio
+
+I am a final year student studying Politics and International Relations at the
+University of Essex. My current academic interests include terrorism and 
+international security which I hope to translate into a career. In my spare time
+I enjoy climbing and baking.
+
+#### Email:
+
+ms23771@essex.ac.uk
