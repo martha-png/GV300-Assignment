@@ -131,21 +131,21 @@ childrens' outcomes are not purely based on merit.",
 
 # What the code does and what the figure shows.
 After loading the data set, the first chunk of code creates meaningful categories,
-identifying: the level of the mother's ability, the outcome level of children's
-scores, groups the mothers by iq, identifies outliers, filters the mother's by 
-levels of advantage, and finally rounded the mother's IQs. The following two lines 
+including: identifying the level of the mother's ability and the outcome level of 
+children's scores; grouping the mothers by IQ; identifying outliers; filtering the
+mothers by levels of advantage; and rounding the mothers' IQs. The following two lines 
 of code reorder family advantage and mom IQ to make the visualisation follow
 a logical order (from low to high). The visualisation code displays the children's
 test scores as points, whilst adding a regression line on top to show how the
-relationship between test scores and IQ vary across backgrounds. Surprising cases
+relationship between test scores and IQ varies across backgrounds. Surprising cases
 are coloured differently. 
 
-The figure shows that there is a positive relationship between mother's IQ and 
-child's test score across all backgrounds. This means that children of mothers with
+The figure shows that there is a positive relationship between mothers' IQ and 
+childs' test scores across all backgrounds. This means that children of mothers with
 higher IQ scores are more likely to test highly. This relationship is strongest
 in those with low familial advantage. The other two groups have more surprising
 cases (when the predicted relationship is not found) than low familial advantage
-but this may be due to them having larger sample sizes.
+,but this may be due to them having larger sample sizes.
 
 
 # Link to repository
