@@ -7,6 +7,8 @@ navbar:
       href: index.html
     - text: "Assignment"
       href: posts.html
+    - text: "Assignment 2"
+      href: posts2.html
 site: distill::distill_website
 theme: postcards.css
 
