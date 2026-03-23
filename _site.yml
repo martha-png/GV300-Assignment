@@ -1,11 +1,11 @@
 name: "."
-title: "My Page"
+title: "Martha Sansom"
 output_dir: "docs"
 navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "Assignment"
+    - text: "Assignment 1"
       href: posts.html
     - text: "Assignment 2"
       href: posts2.html
